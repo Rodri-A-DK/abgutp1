@@ -1,0 +1,15 @@
+services:
+  hermes-vm:
+    build: .
+    container_name: hermes-vm
+    restart: unless-stopped
+    shm_size: "2gb"            # Chromium se cae con /dev/shm pequeño
+    env_file: .env
+    ports:
+      - "127.0.0.1:6081:6080"  # solo accesible desde tu PC
+    volumes:
+      - hermes-home:/home/claw   # conserva sesión de WhatsApp, config y perfil de Chromium
+    # Sin montajes de tus carpetas de Windows: la VM no ve tus archivos.
+
+volumes:
+  hermes-home:
